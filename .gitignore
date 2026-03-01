@@ -1,0 +1,4 @@
+# Local environment files
+.env
+.DS_Store
+node_modules/
