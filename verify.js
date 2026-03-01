@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             const token = otpCodeInput.value.trim();
 
-            if (token.length !== 6) {
-                verifyErrorDiv.textContent = 'Please enter a 6-digit code.';
+            // Updated check for 8-digit OTP
+            if (token.length !== 8) {
+                verifyErrorDiv.textContent = 'Please enter an 8-digit code.';
                 return;
             }
 
