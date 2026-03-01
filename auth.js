@@ -1,13 +1,12 @@
-// Supabase Configuration
-const SUPABASE_URL = 'https://lsmilspxymyppnwtybso.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_I-cq5ZzXIfvPqSUn83X50w_DPPAvk7h';
-
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signup-form');
     const loginForm = document.getElementById('login-form');
     
+    // 1. Check if user is already logged in (uses the global function from config.js)
+    if (typeof checkAuthSession === 'function') {
+        checkAuthSession(false);
+    }
+
     const signupFullnameInput = document.getElementById('signup-fullname');
     const signupUsernameInput = document.getElementById('signup-username');
     const signupEmailInput = document.getElementById('signup-email');
@@ -18,13 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginIdentifierInput = document.getElementById('login-identifier');
     const loginPasswordInput = document.getElementById('login-password');
     const loginErrorDiv = document.getElementById('login-error');
-
-    // 1. Check if user is already logged in
-    const checkUser = async () => {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (user) window.location.href = 'index.html';
-    };
-    checkUser();
 
     // Helper: Simple email validation
     const isEmail = (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);

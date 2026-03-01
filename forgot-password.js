@@ -1,9 +1,3 @@
-// Supabase Configuration
-const SUPABASE_URL = 'https://lsmilspxymyppnwtybso.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_I-cq5ZzXIfvPqSUn83X50w_DPPAvk7h';
-
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 document.addEventListener('DOMContentLoaded', () => {
     const forgotPasswordForm = document.getElementById('forgot-password-form');
     const resetEmailInput = document.getElementById('reset-email');

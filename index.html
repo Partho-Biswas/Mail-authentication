@@ -31,29 +31,23 @@
 
     <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
     <script>
-        // Supabase Configuration
-        const SUPABASE_URL = 'https://lsmilspxymyppnwtybso.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_I-cq5ZzXIfvPqSUn83X50w_DPPAvk7h';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { user } } = await supabaseClient.auth.getUser();
+            // Uses the global helper from config.js
+            const user = await checkAuthSession(true);
 
-            if (!user) {
-                window.location.href = 'auth.html';
-                return;
+            if (user) {
+                // Display user details from Supabase metadata and email
+                document.getElementById('display-fullname').textContent = user.user_metadata.full_name || 'User';
+                document.getElementById('display-email').textContent = user.email;
+                document.getElementById('display-username').textContent = user.user_metadata.username || 'N/A';
+
+                document.getElementById('logout-btn').addEventListener('click', async () => {
+                    await supabaseClient.auth.signOut();
+                    window.location.href = 'auth.html';
+                });
             }
-
-            // Display user details from Supabase metadata and email
-            document.getElementById('display-fullname').textContent = user.user_metadata.full_name || 'User';
-            document.getElementById('display-email').textContent = user.email;
-            document.getElementById('display-username').textContent = user.user_metadata.username || 'N/A';
-
-            document.getElementById('logout-btn').addEventListener('click', async () => {
-                await supabaseClient.auth.signOut();
-                window.location.href = 'auth.html';
-            });
         });
     </script>
 </body>
