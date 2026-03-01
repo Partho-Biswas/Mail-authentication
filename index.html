@@ -22,6 +22,7 @@
             <div id="user-details" class="lead mb-4">
                 <p>Welcome, <span id="display-fullname" class="fw-bold text-primary"></span>!</p>
                 <p>Email: <span id="display-email"></span></p>
+                <p>Username: <span id="display-username" class="badge bg-secondary"></span></p>
                 <div class="badge bg-success">Account Verified</div>
             </div>
             <button id="logout-btn" class="btn btn-outline-danger mt-3">Logout</button>
@@ -47,6 +48,7 @@
             // Display user details from Supabase metadata and email
             document.getElementById('display-fullname').textContent = user.user_metadata.full_name || 'User';
             document.getElementById('display-email').textContent = user.email;
+            document.getElementById('display-username').textContent = user.user_metadata.username || 'N/A';
 
             document.getElementById('logout-btn').addEventListener('click', async () => {
                 await supabaseClient.auth.signOut();
